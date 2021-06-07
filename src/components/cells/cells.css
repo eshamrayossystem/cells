@@ -1,1 +1,23 @@
 .cells {}
+.field-container {
+    display: grid;
+    grid-auto-rows: 1fr;
+}
+.field-container::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+.field-container > *:first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+}
+.cell {
+    border: 1px solid grey;
+    background-color: black;
+}
+.alive-cell {
+    background-color: white;
+}
