@@ -1,4 +1,8 @@
-.cells {}
+.cells {
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .field-container {
     display: grid;
     grid-auto-rows: 1fr;
