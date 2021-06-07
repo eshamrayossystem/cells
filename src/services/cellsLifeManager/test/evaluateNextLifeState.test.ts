@@ -69,3 +69,41 @@ test('test evaluateNextLifeState with line shape init life state form', () => {
   const nextLifeState = evaluateNextLifeState(lineShapeLifeState, lineShapeFieldSize);
   expect(nextLifeState).toEqual(nextLineShapeLifeState);
 });
+
+const deadFieldSize = { width: 4, height: 3 };
+// prettier-ignore
+const deadFieldLifeState = [
+  false, false, false, false,
+  false, false, false, false,
+  false, false, false, false
+];
+// prettier-ignore
+const nextDeadFieldLifeState = [
+  false, false, false, false,
+  false, false, false, false,
+  false, false, false, false
+];
+
+test('test evaluateNextLifeState with dead init life state', () => {
+  const nextLifeState = evaluateNextLifeState(deadFieldLifeState, deadFieldSize);
+  expect(nextLifeState).toEqual(nextDeadFieldLifeState);
+});
+
+const crowdedFieldSize = { width: 4, height: 3 };
+// prettier-ignore
+const crowdedFieldLifeState = [
+  true, true, true, true,
+  true, true, true, true,
+  true, true, true, true
+];
+// prettier-ignore
+const crowdedDeadFieldLifeState = [
+  false, false, false, false,
+  false, false, false, false,
+  false, false, false, false
+];
+
+test('test evaluateNextLifeState with crowded init life state', () => {
+  const nextLifeState = evaluateNextLifeState(crowdedFieldLifeState, crowdedFieldSize);
+  expect(nextLifeState).toEqual(crowdedDeadFieldLifeState);
+});
