@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './cells.css';
 import { evaluateNextLifeState, getRandomLifeState, IFieldSize, TLifeState } from 'services/cellsLifeManager';
-
-const fieldSize: IFieldSize = { height: 50, width: 50 };
-const TICK = 400;
 
 const Field: React.FC<{ fieldSize: IFieldSize; lifeState: TLifeState }> = ({ fieldSize, lifeState }) => {
   const { width } = fieldSize;
@@ -19,20 +16,18 @@ const Field: React.FC<{ fieldSize: IFieldSize; lifeState: TLifeState }> = ({ fie
   );
 };
 
-const Cells = () => {
+const Cells: React.FC<{ fieldSize: IFieldSize; tick: number }> = ({ fieldSize, tick }) => {
+  const intervalTimerRef = useRef<number>();
   const [lifeState, setLifeState] = useState(() => getRandomLifeState(fieldSize));
   useEffect(() => {
-    const interval = setInterval(() => {
+    const intervalId: number = window.setInterval(() => {
       setLifeState((lifeState) => evaluateNextLifeState(lifeState, fieldSize));
-    }, TICK);
-    return () => clearInterval(interval);
-  }, []);
+    }, tick);
+    intervalTimerRef.current = intervalId;
+    return () => window.clearInterval(intervalTimerRef.current);
+  }, [tick, fieldSize]);
 
-  return (
-    <div className='cells'>
-      <Field fieldSize={fieldSize} lifeState={lifeState} />
-    </div>
-  );
+  return <Field fieldSize={fieldSize} lifeState={lifeState} />;
 };
 
 export default Cells;
