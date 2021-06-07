@@ -1,6 +1,6 @@
 import { IFieldSize, TLifeState, ICellNeighbors } from './interfaces';
 
-export const getCellFieldRowIndex = (cellIndex: number, fieldSize: IFieldSize): number => {
+const getCellFieldRowIndex = (cellIndex: number, fieldSize: IFieldSize): number => {
   const { width: fieldWidth, height: fieldHeight } = fieldSize;
   const rowIndex = Math.floor(cellIndex / fieldWidth);
   if (Number.isNaN(rowIndex) || cellIndex < 0) {
